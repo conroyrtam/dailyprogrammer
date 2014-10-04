@@ -24,7 +24,7 @@ public class ColumnSplitter
     public static void main (String [] args)
     {
         //Hardcoded values.
-        final String INPUT_FILE_NAME = "src/main/resources/c182e-input.txt";
+        final String INPUT_FILE_NAME = "src/main/resources/c182e-sample-input.txt";
 
         FileInputStream inputStream = null;
         BufferedReader reader = null;
@@ -73,7 +73,7 @@ public class ColumnSplitter
 
         //RESEARCH: How to use FileOutputBuffer.
 
-        final String OUTPUT_FILE_NAME = "c182e-output.txt";
+        final String OUTPUT_FILE_NAME = "c182e-sample-output.txt";
         FileOutputStream outputStream = null;
 
         int numberOfColumns = Integer.parseInt(firstLine[0]);
