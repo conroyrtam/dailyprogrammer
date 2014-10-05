@@ -1,4 +1,4 @@
-package com.reddit.dailyprogrammer.easy.looknsay;
+package com.reddit.dailyprogrammer.easy.lookandsay;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
