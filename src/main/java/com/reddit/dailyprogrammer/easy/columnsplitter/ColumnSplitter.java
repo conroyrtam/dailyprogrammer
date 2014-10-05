@@ -1,4 +1,4 @@
-package main.java.com.reddit.dailyprogrammer.easy.columnsplitter;
+package com.reddit.dailyprogrammer.easy.columnsplitter;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -18,6 +18,10 @@ import java.io.InputStreamReader;
  *     Number of columns: The number of columns to split the txt into.
  *     Column width: The width, in characters, of each column.
  *     Space width: The width, in spaces, between each column.
+ *
+ * Future enhancements:
+ *      Instead of printing the output to the console, write output to a file using FileOutputStream.
+ *
  */
 public class ColumnSplitter
 {
