@@ -124,8 +124,7 @@ public class ColumnSplitter
         //Step 4: Output the result.
         for(int i = 0; i < linesPerColumn; i++)
         {
-            //This print is more of a debugging print to keep track of how many lines per column are in the output.
-            //Also, it makes the output look nicer.
+            //DEBUG: Keep track of how many lines per column are in the output. Also, it makes the output look nicer.
             System.out.print(i + " ");
             for(int j = 0; j < numberOfColumns; j++)
             {
