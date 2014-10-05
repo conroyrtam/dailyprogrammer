@@ -40,20 +40,19 @@ public class ColumnSplitter
             inputStream = new FileInputStream(INPUT_FILE_NAME);
             reader = new BufferedReader(new InputStreamReader(inputStream));
 
+            //Step 1: Read in the first line of the document.
             String[] firstLine = getFirstLine(reader);
 
+            //Assumption: First line must have a length of 3 and be in <int> <int> <int> format.
             if(firstLine.length != 3)
             {
                 throw new Exception("Failed to parse the first line of the file. Line must use the format: <int> <int> <int>");
             }
 
+            //Step 2: Get the remaining text from the input file.
             String fileText = getFileText(reader);
+
             formatAndOutputFileTxt(firstLine, fileText);
-        }
-        catch(IOException e)
-        {
-            System.out.println("Caught IOException" + e);
-            e.printStackTrace();
         }
         catch(Exception e)
         {
@@ -73,6 +72,8 @@ public class ColumnSplitter
         }
     }
 
+    //This method processes the data read from firstLine and fileText then passes the information
+    //to create and output the formatted lines.
     private static void formatAndOutputFileTxt(String[] firstLine, String fileText) {
 
         //RESEARCH: How to use FileOutputBuffer.
@@ -84,37 +85,17 @@ public class ColumnSplitter
         int columnWidth = Integer.parseInt(firstLine[1]);
         int spaceWidth = Integer.parseInt(firstLine[2]);
 
-        String columnSpacing = getSpaces(spaceWidth);
-
         try
         {
             outputStream = new FileOutputStream(OUTPUT_FILE_NAME);
-            String[] fileWords = fileText.replaceAll("\n", " ").split(" ");
 
+            //Step 3: Split the file into individual words, then create each line in the output file.
+            String[] fileWords = fileText.replaceAll("\n", " ").split(" ");
             String lines = createFormattedLines(columnWidth, fileWords);
             String[] outputLines = lines.split("\n");
 
-            int linesPerColumn = (int) Math.ceil((double) outputLines.length / (double) numberOfColumns);
-            int indexToPrint = 0;
-
-            for(int i = 0; i < linesPerColumn; i++)
-            {
-                //This print is more of a debugging print to keep track of how many lines per column are in the output.
-                System.out.print(i + " ");
-                for(int j = 0; j < numberOfColumns; j++)
-                {
-                    indexToPrint = i+(j*linesPerColumn);
-                    if(indexToPrint < outputLines.length) {
-                        System.out.print(outputLines[indexToPrint]);
-                        if (j != numberOfColumns - 1) {
-                            System.out.print(columnSpacing);
-                        }
-                        else {
-                            System.out.println();
-                        }
-                    }
-                }
-            }
+            //Step 4: Print the output.
+            printOutput(outputLines, numberOfColumns, spaceWidth);
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -132,6 +113,37 @@ public class ColumnSplitter
 
     }
 
+    //This method prints out the output. The index is computed by using the number of lines per column and number of columns.
+    private static void printOutput(String[] outputLines, int numberOfColumns, int spaceWidth) {
+
+        String columnSpacing = getSpaces(spaceWidth);
+
+        int linesPerColumn = (int) Math.ceil((double) outputLines.length / (double) numberOfColumns);
+        int indexToPrint = 0;
+
+        //Step 4: Output the result.
+        for(int i = 0; i < linesPerColumn; i++)
+        {
+            //This print is more of a debugging print to keep track of how many lines per column are in the output.
+            //Also, it makes the output look nicer.
+            System.out.print(i + " ");
+            for(int j = 0; j < numberOfColumns; j++)
+            {
+                indexToPrint = i+(j*linesPerColumn);
+                if(indexToPrint < outputLines.length) {
+                    System.out.print(outputLines[indexToPrint]);
+                    if (j != numberOfColumns - 1) {
+                        System.out.print(columnSpacing);
+                    }
+                    else {
+                        System.out.println();
+                    }
+                }
+            }
+        }
+    }
+
+    //This method returns the specified number of spaces for format "padding".
     private static String getSpaces(int spaceWidth)
     {
         StringBuilder stringBuilder = new StringBuilder();
@@ -143,6 +155,7 @@ public class ColumnSplitter
         return stringBuilder.toString();
     }
 
+    //This method creates the formatted lines used in the output using the words and the column width.
     private static String createFormattedLines(int columnWidth, String[] fileWords)
     {
         StringBuilder stringBuilder = new StringBuilder();
@@ -176,6 +189,7 @@ public class ColumnSplitter
         return stringBuilder.toString();
     }
 
+    //This method gets the remaining text from the input file.
     private static String getFileText(BufferedReader reader) {
 
         //RESEARCH: More efficient to read input into String[], split by String, then format
@@ -204,6 +218,8 @@ public class ColumnSplitter
         return "";
     }
 
+    //This method gets the first line from the input file.
+    //First line is assumed to be three Integers in the format <int> <int> <int>
     private static String[] getFirstLine(BufferedReader reader)
     {
         try {

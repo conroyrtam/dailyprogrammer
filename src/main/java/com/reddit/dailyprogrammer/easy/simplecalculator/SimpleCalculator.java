@@ -13,17 +13,21 @@ import java.util.regex.Pattern;
  * Input: Format is in slope-intercept form. y = ax+b, where a and b are constants.
  *
  * Future enhancements:
- *      Expand to solve other functions, not just lines.
- *      Double output printed out at a specified precision.
+ *      Could expand to solve more complicated functions.
+ *      Print double output at a specified precision.
  *
  * Resources used:
  * Regex tutorial: http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html
  */
 public class SimpleCalculator
 {
+
+    //This method finds a point of intersection given two equations.
     public static Point findPoint(String equationOne, String equationTwo) throws Exception
     {
         //Pattern pattern = Pattern.compile("=([\\+\\-]?)([\\d+]x?)([\\+\\-]?)([\\d+]?)");
+
+        //FIXME: Pattern does not work with both integer coefficients and double coefficients.
         Pattern pattern = Pattern.compile("=([\\+\\-]?)(\\d+\\.\\d+x?)([\\+\\-]?)(\\d+\\.\\d+?)");
         Matcher matcher = pattern.matcher(equationOne);
 
@@ -32,6 +36,7 @@ public class SimpleCalculator
         Double bOne = null;
         Double bTwo = null;
 
+        //Match patterns for equation one.
         if(matcher.find())
         {
             Character xOneSign = getSign(matcher.group(1));
@@ -44,8 +49,8 @@ public class SimpleCalculator
             throw new Exception("Unable to parse equation one");
         }
 
+        //Match patterns for equations two.
         matcher = pattern.matcher(equationTwo);
-
         if(matcher.find())
         {
             Character xTwoSign = getSign(matcher.group(1));
@@ -60,6 +65,7 @@ public class SimpleCalculator
 
         Point point = null;
 
+        //Special case: If the slope is the same, points will never intersect.
         if(xOne.intValue() == xTwo.intValue())
         {
             System.out.println("Slopes are the same, so the points do not intersect");
@@ -73,12 +79,14 @@ public class SimpleCalculator
         return point;
     }
 
+    //Extracts the sign of a coefficient.
     private static Character getSign(String group) {
         if(group.equals(""))
             return '+';
         return group.charAt(0);
     }
 
+    //Parse the value of the group and apply the sign to the returned result.
     private static Double getDoubleValue(String group, Character sign)
     {
         group = group.replaceAll("x", "");
@@ -93,7 +101,8 @@ public class SimpleCalculator
     }
 
 
-    //RESEARCH: Using keyword 'static'
+    //RESEARCH: Using keyword 'static'.
+    //This class represents a point on a graph.
     static class Point
     {
         double xCoordinate;
