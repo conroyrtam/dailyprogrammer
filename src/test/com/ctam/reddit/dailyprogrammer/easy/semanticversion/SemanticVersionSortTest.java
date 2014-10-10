@@ -1,10 +1,10 @@
-package com.reddit.dailyprogrammer.easy.semanticversion;
+package com.ctam.reddit.dailyprogrammer.easy.semanticversion;
 
 import java.util.ArrayList;
 
 import junit.framework.Assert;
 import org.junit.Test;
-import com.reddit.dailyprogrammer.easy.semanticversion.SemanticVersionSort.SemanticVersion;
+import com.ctam.reddit.dailyprogrammer.easy.semanticversion.SemanticVersionSort.SemanticVersion;
 
 
 public class SemanticVersionSortTest {

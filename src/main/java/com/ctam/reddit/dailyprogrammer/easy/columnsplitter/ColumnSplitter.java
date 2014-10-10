@@ -1,4 +1,4 @@
-package com.reddit.dailyprogrammer.easy.columnsplitter;
+package com.ctam.reddit.dailyprogrammer.easy.columnsplitter;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;

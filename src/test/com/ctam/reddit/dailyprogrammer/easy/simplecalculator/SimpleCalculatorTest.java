@@ -1,4 +1,4 @@
-package com.reddit.dailyprogrammer.easy.simplecalculator;
+package com.ctam.reddit.dailyprogrammer.easy.simplecalculator;
 
 /**
  * Test harness for SimpleCalculator.java
